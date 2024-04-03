@@ -1,14 +1,32 @@
+"use client"
+import GoogleMapSection from "@/components/Home/GoogleMapSection";
+import SearchSection from "@/components/Home/SearchSection";
+import { DestinationContext } from "@/context/DestinationContext";
+import { SourceContext } from "@/context/SourceContext";
 import Image from "next/image";
+import { useState } from "react";
+import { LoadScript } from '@react-google-maps/api';
+
 
 export default function Home() {
+  const [source, setSource] = useState([])
+  const [destination, setDestination] = useState([])
   return (
-    <div className="bg-white text-black p-6 grid grid-cols-1 md:grid-cols-3 gap-5">
-      <div>
-        Search
-      </div>
-      <div className="col-span-2">
-        Google Map
-      </div>
-    </div>
+    <SourceContext.Provider value={{ source, setSource }}>
+      <DestinationContext.Provider value={{ destination, setDestination }}>
+        <LoadScript
+          libraries={['places']}
+          googleMapsApiKey={"AIzaSyDHPXONILSr1ziUNAcm_qxA7PgINbrYdhQ"}>
+          <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div>
+              <SearchSection />
+            </div>
+            <div className="col-span-2">
+              <GoogleMapSection />
+            </div>
+          </div>
+        </LoadScript>
+      </DestinationContext.Provider>
+    </SourceContext.Provider>
   );
 }
