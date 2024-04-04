@@ -10,9 +10,8 @@ function InputItem({ type }) {
     const [placeholder, setPlaceholder] = useState(null);
     const { source, setSource } = useContext(SourceContext);
     const { destnation, setDestination } = useContext(DestinationContext);
-
     useEffect(() => {
-        type = 'source'
+        type === 'source'
             ? setPlaceholder('Pickup Location')
             : setPlaceholder('Dropoff Location')
     }, []);
@@ -52,7 +51,7 @@ function InputItem({ type }) {
                 selectProps={{
                     value,
                     onChange: (place) => { getLatAndLng(place, type); setValue(place) },
-                    placeholder: 'Pickup Location',
+                    placeholder: placeholder,
                     isClearable: false,
                     className: 'w-full',
                     components: {
